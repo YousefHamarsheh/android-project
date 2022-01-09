@@ -1,4 +1,4 @@
-package edu.birzeit.hotelproject;
+package edu.birzeit.hotelproject.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,9 @@ import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import edu.birzeit.hotelproject.MainActivity;
+import edu.birzeit.hotelproject.R;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText dateformats;

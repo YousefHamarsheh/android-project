@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+
+import edu.birzeit.hotelproject.views.HomePageActivity;
+import edu.birzeit.hotelproject.views.SignUpActivity;
 
 public class MainActivity extends AppCompatActivity {
 

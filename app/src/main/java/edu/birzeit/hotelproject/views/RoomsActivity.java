@@ -1,4 +1,4 @@
-package edu.birzeit.hotelproject;
+package edu.birzeit.hotelproject.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,20 +6,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class LogoutActivity extends AppCompatActivity {
+import edu.birzeit.hotelproject.R;
+
+public class RoomsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logout);
+        setContentView(R.layout.activity_rooms);
 
         BottomNavigationView BNV = findViewById(R.id.nav_id);
 
-        BNV.setSelectedItemId(R.id.logout);
+        BNV.setSelectedItemId(R.id.roomsBooking);
 
         BNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -31,8 +32,6 @@ public class LogoutActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.roomsBooking:
-                        startActivity(new Intent(getApplicationContext(), RoomsActivity.class));
-                        overridePendingTransition(0,0);
                         return true;
 
                     case R.id.about:
@@ -45,12 +44,14 @@ public class LogoutActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
 
+
                     case R.id.logout:
+                        startActivity(new Intent(getApplicationContext(), LogoutActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
             }
         });
-
     }
 }

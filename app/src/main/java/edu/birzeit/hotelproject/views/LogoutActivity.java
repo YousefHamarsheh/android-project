@@ -1,4 +1,4 @@
-package edu.birzeit.hotelproject;
+package edu.birzeit.hotelproject.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,22 +9,26 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomePageActivity extends AppCompatActivity {
+import edu.birzeit.hotelproject.R;
+
+public class LogoutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+        setContentView(R.layout.activity_logout);
 
         BottomNavigationView BNV = findViewById(R.id.nav_id);
 
-        BNV.setSelectedItemId(R.id.homepage);
+        BNV.setSelectedItemId(R.id.logout);
 
         BNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.homepage:
+                        startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
 
                     case R.id.roomsBooking:
@@ -43,12 +47,11 @@ public class HomePageActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.logout:
-                        startActivity(new Intent(getApplicationContext(), LogoutActivity.class));
-                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
             }
         });
+
     }
 }

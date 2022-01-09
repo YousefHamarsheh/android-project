@@ -10,22 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelProject">
         <activity
-            android:name=".LogoutActivity"
+            android:name=".views.LogoutActivity"
             android:exported="true" />
         <activity
-            android:name=".ContactUsActivity"
+            android:name=".views.ContactUsActivity"
             android:exported="true" />
         <activity
-            android:name=".AboutUsActivity"
+            android:name=".views.AboutUsActivity"
             android:exported="true" />
         <activity
-            android:name=".RoomsActivity"
+            android:name=".views.RoomsActivity"
             android:exported="true" />
         <activity
-            android:name=".HomePageActivity"
+            android:name=".views.HomePageActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".views.SignUpActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
