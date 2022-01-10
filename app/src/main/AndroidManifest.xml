@@ -14,6 +14,9 @@
         android:theme="@style/Theme.HotelProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".views.AddRoomActivity"
+            android:exported="true" />
+        <activity
             android:name=".views.ReceptionMenue"
             android:exported="true" />
         <activity

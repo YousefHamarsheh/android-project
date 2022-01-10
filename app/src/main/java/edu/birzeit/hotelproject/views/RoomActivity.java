@@ -141,6 +141,7 @@ public class RoomActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
 
+            //Response is a string that needs to be converted to an a json object then json array
                     JSONObject  jsnobject =null;
                     JSONArray  jsonArray=null;
                     @Override
