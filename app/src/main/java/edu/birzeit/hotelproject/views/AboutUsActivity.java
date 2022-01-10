@@ -32,7 +32,7 @@ public class AboutUsActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.roomsBooking:
-                        startActivity(new Intent(getApplicationContext(), RoomsActivity.class));
+                        startActivity(new Intent(getApplicationContext(),RoomActivity.class));
                         overridePendingTransition(0,0);
                         return true;
 

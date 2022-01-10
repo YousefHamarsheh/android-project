@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.RoomsActivity">
+    tools:context=".views.RoomActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rooms Page"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"
-        />
+        android:layout_marginTop="20dp"
+        android:id="@+id/listRoom_id"/>
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_id"

@@ -1,7 +1,7 @@
 package edu.birzeit.hotelproject.models;
 
 public class Room {
-    private int room_id;
+    private int    room_id;
     private String room_number;
     private String room_type;
     private String room_price;

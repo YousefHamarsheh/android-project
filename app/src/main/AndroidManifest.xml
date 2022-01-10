@@ -14,6 +14,9 @@
         android:theme="@style/Theme.HotelProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".views.customerActivity"
+            android:exported="true" />
+        <activity
             android:name=".views.RoomActivity"
             android:exported="true" />
         <activity
@@ -27,9 +30,6 @@
             android:exported="true" />
         <activity
             android:name=".views.AboutUsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".views.RoomsActivity"
             android:exported="true" />
         <activity
             android:name=".views.HomePageActivity"
