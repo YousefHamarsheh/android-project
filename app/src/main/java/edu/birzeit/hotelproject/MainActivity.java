@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import edu.birzeit.hotelproject.views.HomePageActivity;
+import edu.birzeit.hotelproject.views.ReceptionActivity;
+import edu.birzeit.hotelproject.views.RoomActivity;
 import edu.birzeit.hotelproject.views.SignUpActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.text_create_account).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
+                startActivity(new Intent(getApplicationContext(), RoomActivity.class));
             }
         });
     }

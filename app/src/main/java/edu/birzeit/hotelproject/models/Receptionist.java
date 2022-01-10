@@ -10,6 +10,8 @@ public class Receptionist {
     private String email;
     private String phone;
 
+
+
     public Receptionist() {
     }
 
