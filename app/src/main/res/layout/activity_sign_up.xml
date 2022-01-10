@@ -55,17 +55,18 @@
                     app:tint="@color/colorAccent" />
 
                 <EditText
+                    android:id="@+id/nameId"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@null"
                     android:hint="John Doe"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:inputType="text"
                     android:imeOptions="actionNext"
                     android:importantForAutofill="no"
+                    android:inputType="text"
                     android:paddingStart="15dp"
-                    android:paddingEnd="15dp"/>
+                    android:paddingEnd="15dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -113,17 +114,18 @@
                     app:tint="@color/colorAccent" />
 
                 <EditText
+                    android:id="@+id/usernameId"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@null"
                     android:hint="johndoe"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:inputType="text"
                     android:imeOptions="actionNext"
                     android:importantForAutofill="no"
+                    android:inputType="text"
                     android:paddingStart="15dp"
-                    android:paddingEnd="15dp"/>
+                    android:paddingEnd="15dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -150,55 +152,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp">
-
-            <LinearLayout
-                android:id="@+id/email_text"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="18dp"
-                android:background="@drawable/background_page"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginStart="15dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_of_email"
-                    app:tint="@color/colorAccent" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@null"
-                    android:hint="user@gmail.com"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:inputType="textEmailAddress"
-                    android:imeOptions="actionNext"
-                    android:importantForAutofill="no"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:background="@color/colorWhite"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:text="@string/email"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:textColor="@color/colorTextSecondary"
-                app:layout_constraintBottom_toTopOf="@id/email_text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/email_text"
-                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -227,17 +180,18 @@
                     app:tint="@color/colorAccent" />
 
                 <EditText
+                    android:id="@+id/phoneId"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@null"
                     android:hint="@string/number_phone"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:inputType="number"
                     android:imeOptions="actionNext"
                     android:importantForAutofill="no"
+                    android:inputType="number"
                     android:paddingStart="15dp"
-                    android:paddingEnd="15dp"/>
+                    android:paddingEnd="15dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -284,17 +238,18 @@
                     app:tint="@color/colorAccent" />
 
                 <EditText
+                    android:id="@+id/visaId"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@null"
                     android:hint="@string/visa_number"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:inputType="number"
                     android:imeOptions="actionNext"
                     android:importantForAutofill="no"
+                    android:inputType="number"
                     android:paddingStart="15dp"
-                    android:paddingEnd="15dp"/>
+                    android:paddingEnd="15dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -400,17 +355,18 @@
                     app:tint="@color/colorAccent" />
 
                 <EditText
+                    android:id="@+id/passwordId"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@null"
                     android:hint="@string/password_hint"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:inputType="textPassword"
                     android:imeOptions="actionDone"
                     android:importantForAutofill="no"
+                    android:inputType="textPassword"
                     android:paddingStart="15dp"
-                    android:paddingEnd="15dp"/>
+                    android:paddingEnd="15dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -433,11 +389,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
+            android:id="@+id/signUpBtn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            android:onClick="createAccount"
             android:text="Sign up"
             android:textSize="15sp"
             android:textStyle="bold"

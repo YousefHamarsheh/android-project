@@ -62,4 +62,10 @@ Those staying at Palestine hotel can sample Thai and Italian dishes at the in-ho
 
     <string name="invoice">Invoice</string>
     <string name="invoices">invoices</string>
+
+    <array name="receptionChoices">
+        <item>Rooms</item>
+        <item>Customers</item>
+        <item>Reservations</item>
+    </array>
 </resources>

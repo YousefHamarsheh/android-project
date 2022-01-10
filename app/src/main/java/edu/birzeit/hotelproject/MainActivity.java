@@ -3,7 +3,9 @@ package edu.birzeit.hotelproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -26,26 +28,36 @@ import java.util.List;
 
 import edu.birzeit.hotelproject.models.Customer;
 import edu.birzeit.hotelproject.models.Receptionist;
+import edu.birzeit.hotelproject.services.LoginService;
 import edu.birzeit.hotelproject.views.AboutUsActivity;
 import edu.birzeit.hotelproject.views.HomePageActivity;
 import edu.birzeit.hotelproject.views.ReceptionActivity;
+import edu.birzeit.hotelproject.views.ReceptionMenue;
 import edu.birzeit.hotelproject.views.RoomActivity;
+import edu.birzeit.hotelproject.views.SignUpActivity;
 
 public class MainActivity extends AppCompatActivity {
     EditText usernameEditText,passwordEditText;
+    public static final String USERNAME = "USERNAME";
+    public static final String PASSWORD = "PASSWORD";
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     List<Receptionist> receptionistList =new ArrayList<>();
     List<Customer>customerList=new ArrayList<>();
     private RequestQueue queue;
     String urlReceptions = "http://10.0.2.2:80/hotel_app_backend/controllers/receptionController/get.php";
     String urlCustomers="http://10.0.2.2:80/hotel_app_backend/controllers/customerController/get.php";
     Gson gson=new Gson();
-
+    String customers;
+   public static String EXTRA_MESSAGE;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         queue = Volley.newRequestQueue(this);
         setViews();
+        setSharedPref();
+        checkPreference();
         GetData getData = new GetData();
         Thread thread=new Thread(getData);
         thread.start();
@@ -53,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.text_create_account).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ReceptionActivity.class));
+                Intent intent=new Intent(MainActivity.this,SignUpActivity.class);
+                intent.putExtra(EXTRA_MESSAGE,customers);
+                startActivity(intent);
             }
         });
     }
@@ -62,6 +76,18 @@ public class MainActivity extends AppCompatActivity {
         usernameEditText=findViewById(R.id.usernameId);
         passwordEditText=findViewById(R.id.passwordId);
     }
+    private void setSharedPref() {
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
+    }
+
+    private void checkPreference() {
+            String username = preferences.getString(USERNAME, "");
+            String password = preferences.getString(PASSWORD, "");
+            usernameEditText.setText(username);
+            passwordEditText.setText(password);
+        }
+
 
     public void go(View view) {
         startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
@@ -71,37 +97,33 @@ public class MainActivity extends AppCompatActivity {
     public void signin_btn(View view) {
         String username=usernameEditText.getText().toString();
         String password=passwordEditText.getText().toString();
-//        getReceptionsList();
-        Receptionist recep=new Receptionist(username,password);
 
-        if (checkIfReceptionIsExisted(recep)){
-            Intent intent=new Intent(this,RoomActivity.class);
+        if (LoginService.isReceptionist(username,password,receptionistList)){
+            Log.d("username",username);
+            editor.putString(USERNAME, username);
+            editor.putString(PASSWORD, password);
+            editor.commit();
+            Intent intent=new Intent(this, ReceptionMenue.class);
+            intent.putExtra(EXTRA_MESSAGE,customers);
             startActivity(intent);
         }else{
-            Customer customer=new Customer(username,password);
-            if (checkIfCustomerExisted(customer)){
+            if (LoginService.isCustomer(username,password,customerList)){
+                editor.putString(USERNAME, username);
+                editor.putString(PASSWORD, password);
+                editor.commit();
                 Intent intent=new Intent(this, AboutUsActivity.class);
                 startActivity(intent);
             }
             else{
                 Toast.makeText(MainActivity.this, "you have to create account",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
             }
         }
 
         // now i will asume the customer login is successful
 
     }
-    private boolean checkIfReceptionIsExisted(Receptionist recep){
-        for (int i = 0; i< receptionistList.size(); i++) if (receptionistList.get(i).equals(recep)) return true;
-        return false;
-    }
-    private boolean checkIfCustomerExisted(Customer customer){
-        for (int i=0;i<customerList.size();i++)
-            if (customerList.get(i).equals(customer)) return true;
-        return false;
 
-    }
 
     private void getReceptionsList(){
 // Request a string response from the provided URL.
@@ -143,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getCustomersList(){
-
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlCustomers,
                 new Response.Listener<String>() {
@@ -165,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
                         JSONArray  finalJsonArray = jsonArray;
                         String g = finalJsonArray.toString();
+                        customers=g;
                         Customer[] customersArray = gson.fromJson(g, Customer[].class);
                         for (Customer customer : customersArray) {
                             customerList.add(customer);

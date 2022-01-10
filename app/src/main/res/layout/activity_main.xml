@@ -84,7 +84,6 @@
 
                     <EditText
                         android:id="@+id/usernameId"
-                        android:text="azmi00"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:background="@null"
@@ -143,7 +142,6 @@
 
                     <EditText
                         android:id="@+id/passwordId"
-                        android:text="azmi11"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:background="@null"
