@@ -45,13 +45,15 @@ public class MainActivity extends AppCompatActivity {
     List<Receptionist> receptionistList =new ArrayList<>();
     List<Customer>customerList=new ArrayList<>();
     private RequestQueue queue;
-    String urlReceptions = "http://10.0.2.2:80/hotel_app_backend/controllers/receptionController/get.php";
+    String urlReceptions = "http://127.0.0.1:80/hotel_app_backend/controllers/receptionController/get.php";
     String urlCustomers="http://10.0.2.2:80/hotel_app_backend/controllers/customerController/get.php";
     Gson gson=new Gson();
     String customers;
    public static String EXTRA_MESSAGE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         queue = Volley.newRequestQueue(this);

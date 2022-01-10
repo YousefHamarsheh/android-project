@@ -5,9 +5,12 @@ plugins {
 android {
     compileSdk 30
 
+
+    //min sdk 30 
+
     defaultConfig {
         applicationId "edu.birzeit.hotelproject"
-        minSdk 30
+        minSdk 29
         targetSdk 30
         versionCode 1
         versionName "1.0"
