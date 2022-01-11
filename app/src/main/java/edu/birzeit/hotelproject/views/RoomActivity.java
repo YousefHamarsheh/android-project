@@ -69,9 +69,12 @@ public class RoomActivity extends AppCompatActivity {
         BNV.setSelectedItemId(R.id.roomsBooking);
 
         BNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
+
                     case R.id.homepage:
                         startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
                         overridePendingTransition(0, 0);
@@ -114,8 +117,8 @@ public class RoomActivity extends AppCompatActivity {
         @Override
         public void run() {
          getRooms();
-
         }
+
     }
 
     class CollectRoomType implements Runnable{
@@ -168,7 +171,7 @@ public class RoomActivity extends AppCompatActivity {
                             roomList.add(room);
                         }
 
-                        String[]arr=new String[rooms.size()];
+                        String[] arr = new String[rooms.size()];
                         arr=rooms.toArray(arr);
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                                 RoomActivity.this, android.R.layout.simple_list_item_1,
