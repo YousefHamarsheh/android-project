@@ -153,6 +153,7 @@ public class RoomActivity extends AppCompatActivity {
 
                         setSharedPref();
                         //Please Work
+                        //Hi aljkshdlkasjdlaksjdlasdj
                         for (Room room : roomsArray) {
                             if (preferences.getString(CHECK_ACCOUNT,"").equalsIgnoreCase("customer")){
                                 if (room.isRoom_reserve() == 0){
