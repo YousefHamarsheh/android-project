@@ -1,5 +1,5 @@
 
-package edu.birzeit.hotelproject.views;
+package edu.birzeit.hotelproject.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 

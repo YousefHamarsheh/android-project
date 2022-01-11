@@ -1,4 +1,4 @@
-package edu.birzeit.hotelproject.views;
+package edu.birzeit.hotelproject.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,22 +11,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.birzeit.hotelproject.R;
 
-public class ContactUsActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_us);
+        setContentView(R.layout.activity_home_page);
 
         BottomNavigationView BNV = findViewById(R.id.nav_id);
-        BNV.setSelectedItemId(R.id.contactus);
+
+        BNV.setSelectedItemId(R.id.homepage);
+
         BNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.homepage:
-                        startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
-                        overridePendingTransition(0,0);
                         return true;
 
                     case R.id.roomsBooking:
@@ -40,6 +40,8 @@ public class ContactUsActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.contactus:
+                        startActivity(new Intent(getApplicationContext(), ContactUsActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
 
                     case R.id.logout:

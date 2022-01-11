@@ -29,17 +29,17 @@ import java.util.List;
 import edu.birzeit.hotelproject.models.Customer;
 import edu.birzeit.hotelproject.models.Receptionist;
 import edu.birzeit.hotelproject.services.LoginService;
-import edu.birzeit.hotelproject.views.AboutUsActivity;
-import edu.birzeit.hotelproject.views.HomePageActivity;
-import edu.birzeit.hotelproject.views.ReceptionActivity;
-import edu.birzeit.hotelproject.views.ReceptionMenue;
-import edu.birzeit.hotelproject.views.RoomActivity;
-import edu.birzeit.hotelproject.views.SignUpActivity;
+import edu.birzeit.hotelproject.controller.AboutUsActivity;
+import edu.birzeit.hotelproject.controller.HomePageActivity;
+import edu.birzeit.hotelproject.controller.ReceptionMenue;
+import edu.birzeit.hotelproject.controller.SignUpActivity;
 
 public class MainActivity extends AppCompatActivity {
     EditText usernameEditText,passwordEditText;
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORD";
+    public static final String CHECK_ACCOUNT = "CHECK_ACCOUNT";
+    public static final String HOTEL_SHARED = "HOTEL_SHARED";
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     List<Receptionist> receptionistList =new ArrayList<>();
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         passwordEditText=findViewById(R.id.passwordId);
     }
     private void setSharedPref() {
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = getSharedPreferences(HOTEL_SHARED,MODE_PRIVATE);
         editor = preferences.edit();
     }
 
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("username",username);
             editor.putString(USERNAME, username);
             editor.putString(PASSWORD, password);
+            editor.putString(CHECK_ACCOUNT,"reception");
             editor.commit();
             Intent intent=new Intent(this, ReceptionMenue.class);
             intent.putExtra(EXTRA_MESSAGE,customers);
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             if (LoginService.isCustomer(username,password,customerList)){
                 editor.putString(USERNAME, username);
                 editor.putString(PASSWORD, password);
+                editor.putString(CHECK_ACCOUNT,"customer");
                 editor.commit();
                 Intent intent=new Intent(this, AboutUsActivity.class);
                 startActivity(intent);
