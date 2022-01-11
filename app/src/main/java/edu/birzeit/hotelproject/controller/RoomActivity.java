@@ -160,13 +160,15 @@ public class RoomActivity extends AppCompatActivity {
 
                         //fuck android
                         for (Room room : roomsArray) {
-                            if (room.isRoom_reserve() == 0 && preferences.getString(CHECK_ACCOUNT,"").equalsIgnoreCase("customer")){
+                            if(room.isRoom_reserve() == 0 && preferences.getString(CHECK_ACCOUNT,"").equalsIgnoreCase("customer")){
                                 rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
                                 roomList.add(room);
+                                Log.d("if" , "if statment");
                             }
-                            else{
+                            else if (room.isRoom_reserve() == 1 && preferences.getString(CHECK_ACCOUNT,"").equalsIgnoreCase("reception")){
                                 rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
                                 roomList.add(room);
+                                Log.d("else" , "else statment");
                             }
 
                         }
