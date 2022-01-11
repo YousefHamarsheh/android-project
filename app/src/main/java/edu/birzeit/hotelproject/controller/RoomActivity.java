@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -156,9 +157,6 @@ public class RoomActivity extends AppCompatActivity {
 
                         setSharedPref();
 
-
-
-                        //fuck android
                         for (Room room : roomsArray) {
                             if (room.isRoom_reserve() == 0 && preferences.getString(CHECK_ACCOUNT,"").equalsIgnoreCase("customer")){
                                 rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
@@ -167,6 +165,7 @@ public class RoomActivity extends AppCompatActivity {
                             else{
                                 rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
                                 roomList.add(room);
+                                Log.d("Here","here");
                             }
 
                         }
