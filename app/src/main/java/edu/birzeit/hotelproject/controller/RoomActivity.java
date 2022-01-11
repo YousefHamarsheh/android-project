@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,7 +39,7 @@ public class RoomActivity extends AppCompatActivity {
     public static final String CHECK_ACCOUNT = "CHECK_ACCOUNT";
     private Gson gson = new Gson();
     private List<String> rooms = new ArrayList<>();
-    String url = "http://10.0.2.2/hotel_app_backend/controllers/RoomController/get.php";
+    String url = "http://10.0.2.2:80/hotel_app_backend/controllers/RoomController/get.php";
     List<Room>roomList=new ArrayList<>();
     List<Room>singleRoom,doubleRoom;
     private SharedPreferences preferences;
@@ -58,12 +57,9 @@ public class RoomActivity extends AppCompatActivity {
         BNV.setSelectedItemId(R.id.roomsBooking);
 
         BNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-
                     case R.id.homepage:
                         startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
                         overridePendingTransition(0, 0);
@@ -106,8 +102,8 @@ public class RoomActivity extends AppCompatActivity {
         @Override
         public void run() {
          getRooms();
-        }
 
+        }
     }
 
     class CollectRoomType implements Runnable{
@@ -158,19 +154,20 @@ public class RoomActivity extends AppCompatActivity {
                         setSharedPref();
 
                         for (Room room : roomsArray) {
-                            if (room.isRoom_reserve() == 0 && preferences.getString(CHECK_ACCOUNT,"").equalsIgnoreCase("customer")){
-                                rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
-                                roomList.add(room);
+                            if (preferences.getString(CHECK_ACCOUNT,"").equalsIgnoreCase("customer")){
+                                if (room.isRoom_reserve() == 0){
+                                    rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
+                                    roomList.add(room);
+                                }
                             }
                             else{
                                 rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
                                 roomList.add(room);
-                                Log.d("Here","here");
                             }
 
                         }
 
-                        String[] arr = new String[rooms.size()];
+                        String[]arr=new String[rooms.size()];
                         arr=rooms.toArray(arr);
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                                 RoomActivity.this, android.R.layout.simple_list_item_1,
