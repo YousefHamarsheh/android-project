@@ -152,7 +152,7 @@ public class RoomActivity extends AppCompatActivity {
                         Room[] roomsArray = gson.fromJson(g, Room[].class);
 
                         setSharedPref();
-
+                        //Please Work
                         for (Room room : roomsArray) {
                             if (preferences.getString(CHECK_ACCOUNT,"").equalsIgnoreCase("customer")){
                                 if (room.isRoom_reserve() == 0){
