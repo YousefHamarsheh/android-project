@@ -19,4 +19,6 @@ public class AvailableRoomsActivity extends AppCompatActivity {
     //3- For loop for the ArrayList above
 
     //Select * FROM room,reservation where room_id = reservation.room_id not in (select * from...);
+
+    //This is a comment?!@>?!?@!>?@>!?@>?!@>!?>
 }
