@@ -53,7 +53,7 @@ public class RoomActivity extends AppCompatActivity {
     private RequestQueue queue;
     private Gson gson = new Gson();
     private List<String> rooms = new ArrayList<>();
-    String url = "http://127.0.0.1/hotel_app_backend/controllers/RoomController/get.php";
+    String url = "http://10.0.2.2/hotel_app_backend/controllers/RoomController/get.php";
     List<Room>roomList=new ArrayList<>();
     List<Room>singleRoom,doubleRoom;
 

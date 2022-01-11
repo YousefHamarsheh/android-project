@@ -33,7 +33,7 @@ public class ReceptionActivity extends AppCompatActivity {
     List<String>list=new ArrayList<>();
     private ListView receptionsList;
     private RequestQueue queue;
-    String url = "http://127.0.0.1/hotel_app_backend/controllers/receptionController/get.php";
+    String url = "http://10.0.2.2/hotel_app_backend/controllers/receptionController/get.php";
     Gson gson=new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

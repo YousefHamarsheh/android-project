@@ -120,7 +120,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            String url="http://127.0.0.1/hotel_app_backend/controllers/customerController/post.php";
+            String url="http://10.0.2.2/hotel_app_backend/controllers/customerController/post.php";
         }
     }
 }
