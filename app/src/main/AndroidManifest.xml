@@ -14,43 +14,43 @@
         android:theme="@style/Theme.HotelProject"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".views.BookDetailsActivity"
+            android:name=".controller.BookDetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".views.AvailableRoomsActivity"
+            android:name=".controller.AvailableRoomsActivity"
             android:exported="true" />
         <activity
-            android:name=".views.RoomDetailsActivity"
+            android:name=".controller.RoomDetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".views.AddRoomActivity"
+            android:name=".controller.AddRoomActivity"
             android:exported="true" />
         <activity
-            android:name=".views.ReceptionMenue"
+            android:name=".controller.ReceptionMenue"
             android:exported="true" />
         <activity
-            android:name=".views.customerActivity"
+            android:name=".controller.customerActivity"
             android:exported="true" />
         <activity
-            android:name=".views.RoomActivity"
+            android:name=".controller.RoomActivity"
             android:exported="true" />
         <activity
-            android:name=".views.ReceptionActivity"
+            android:name=".controller.ReceptionActivity"
             android:exported="true" />
         <activity
-            android:name=".views.LogoutActivity"
+            android:name=".controller.LogoutActivity"
             android:exported="true" />
         <activity
-            android:name=".views.ContactUsActivity"
+            android:name=".controller.ContactUsActivity"
             android:exported="true" />
         <activity
-            android:name=".views.AboutUsActivity"
+            android:name=".controller.AboutUsActivity"
             android:exported="true" />
         <activity
-            android:name=".views.HomePageActivity"
+            android:name=".controller.HomePageActivity"
             android:exported="true" />
         <activity
-            android:name=".views.SignUpActivity"
+            android:name=".controller.SignUpActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

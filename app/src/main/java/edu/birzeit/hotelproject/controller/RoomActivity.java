@@ -1,20 +1,15 @@
-package edu.birzeit.hotelproject.views;
+package edu.birzeit.hotelproject.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -25,37 +20,30 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.birzeit.hotelproject.R;
-import edu.birzeit.hotelproject.models.Receptionist;
 import edu.birzeit.hotelproject.models.Room;
 
 
 public class RoomActivity extends AppCompatActivity {
     private ListView roomListView;
     private RequestQueue queue;
+    public static final String HOTEL_SHARED = "HOTEL_SHARED";
+    public static final String CHECK_ACCOUNT = "CHECK_ACCOUNT";
     private Gson gson = new Gson();
     private List<String> rooms = new ArrayList<>();
     String url = "http://10.0.2.2:80/hotel_app_backend/controllers/RoomController/get.php";
     List<Room>roomList=new ArrayList<>();
     List<Room>singleRoom,doubleRoom;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
 
 
@@ -163,9 +151,18 @@ public class RoomActivity extends AppCompatActivity {
                         Log.d("room messages",g);
                         Room[] roomsArray = gson.fromJson(g, Room[].class);
 
+                        setSharedPref();
+
                         for (Room room : roomsArray) {
-                            rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
-                            roomList.add(room);
+                            if (room.isRoom_reserve() == 0 && preferences.getString(CHECK_ACCOUNT,"").equalsIgnoreCase("customer")){
+                                rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
+                                roomList.add(room);
+                            }
+                            else{
+                                rooms.add("Number : " + room.getRoom_number() + " " + "Type :" + room.getRoom_type() + "  price : " + room.getRoom_price());
+                                roomList.add(room);
+                            }
+
                         }
 
                         String[]arr=new String[rooms.size()];
@@ -177,8 +174,6 @@ public class RoomActivity extends AppCompatActivity {
                         CollectRoomType collectRoomType=new CollectRoomType();
                         Thread thread=new Thread(collectRoomType);
                         thread.start();
-
-
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -188,5 +183,10 @@ public class RoomActivity extends AppCompatActivity {
         });
         queue.add(stringRequest);
 
+    }
+
+    private void setSharedPref() {
+        preferences = getSharedPreferences(HOTEL_SHARED,MODE_PRIVATE);
+        editor = preferences.edit();
     }
 }

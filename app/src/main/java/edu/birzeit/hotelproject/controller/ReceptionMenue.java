@@ -1,4 +1,4 @@
-package edu.birzeit.hotelproject.views;
+package edu.birzeit.hotelproject.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import edu.birzeit.hotelproject.MainActivity;
