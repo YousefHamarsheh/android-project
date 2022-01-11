@@ -53,7 +53,7 @@ public class RoomActivity extends AppCompatActivity {
     private RequestQueue queue;
     private Gson gson = new Gson();
     private List<String> rooms = new ArrayList<>();
-    String url = "http://10.0.2.2:80/hotel_app_backend/controllers/RoomController/get.php";
+    String url = "http://127.0.0.1/hotel_app_backend/controllers/RoomController/get.php";
     List<Room>roomList=new ArrayList<>();
     List<Room>singleRoom,doubleRoom;
 
@@ -141,6 +141,7 @@ public class RoomActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
 
+            //Response is a string that needs to be converted to an a json object then json array
                     JSONObject  jsnobject =null;
                     JSONArray  jsonArray=null;
                     @Override
