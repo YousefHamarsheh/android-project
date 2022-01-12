@@ -1,23 +1,27 @@
 package edu.birzeit.hotelproject.models;
 
 public class Room {
-    private int    room_id;
+
+    private int room_id;
     private String room_number;
     private String room_type;
     private String room_price;
     private String imageUrl;
     private String room_description;
+    private int room_reserve;// 0 for unreserved | 1 for reserved
 
-    public Room() {
-    }
+    public Room() {}
 
-    public Room(int room_id, String room_number, String room_type, String room_price, String imageUrl, String room_description) {
+    public Room(int room_id, String room_number, String room_type, String room_price,
+                String imageUrl, String room_description, int room_reserve) {
         this.room_id = room_id;
         this.room_number = room_number;
         this.room_type = room_type;
         this.room_price = room_price;
         this.imageUrl = imageUrl;
         this.room_description = room_description;
+        this.room_reserve = room_reserve;
+
     }
 
     public int getRoom_id() {
@@ -66,6 +70,14 @@ public class Room {
 
     public void setRoom_description(String room_description) {
         this.room_description = room_description;
+    }
+
+    public int isRoom_reserve() {
+        return room_reserve;
+    }
+
+    public void setRoom_reserve(int room_reserve) {
+        this.room_reserve = room_reserve;
     }
 
     @Override

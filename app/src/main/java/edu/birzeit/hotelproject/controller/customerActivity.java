@@ -1,4 +1,4 @@
-package edu.birzeit.hotelproject.views;
+package edu.birzeit.hotelproject.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,24 +7,13 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.birzeit.hotelproject.R;
 import edu.birzeit.hotelproject.models.Customer;
-import edu.birzeit.hotelproject.models.Receptionist;
 
 public class customerActivity extends AppCompatActivity {
     List<Customer>customerList;

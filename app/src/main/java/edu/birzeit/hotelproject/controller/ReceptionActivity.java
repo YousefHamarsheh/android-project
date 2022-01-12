@@ -1,19 +1,15 @@
-package edu.birzeit.hotelproject.views;
+package edu.birzeit.hotelproject.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -27,13 +23,12 @@ import java.util.List;
 
 import edu.birzeit.hotelproject.R;
 import edu.birzeit.hotelproject.models.Receptionist;
-import edu.birzeit.hotelproject.models.Room;
 
 public class ReceptionActivity extends AppCompatActivity {
     List<String>list=new ArrayList<>();
     private ListView receptionsList;
     private RequestQueue queue;
-    String url = "http://10.0.2.2:80/hotel_app_backend/controllers/receptionController/get.php";
+    String url = "http://10.0.2.2/hotel_app_backend/controllers/receptionController/get.php";
     Gson gson=new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
