@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.birzeit.hotelproject.controller.AvailableRoomsActivity;
 import edu.birzeit.hotelproject.models.Customer;
 import edu.birzeit.hotelproject.models.Receptionist;
 import edu.birzeit.hotelproject.services.LoginService;
@@ -35,60 +36,77 @@ import edu.birzeit.hotelproject.controller.ReceptionMenue;
 import edu.birzeit.hotelproject.controller.SignUpActivity;
 
 public class MainActivity extends AppCompatActivity {
-    EditText usernameEditText,passwordEditText;
+    EditText usernameEditText, passwordEditText;
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORD";
     public static final String CHECK_ACCOUNT = "CHECK_ACCOUNT";
     public static final String HOTEL_SHARED = "HOTEL_SHARED";
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    List<Receptionist> receptionistList =new ArrayList<>();
-    List<Customer>customerList=new ArrayList<>();
+    List<Receptionist> receptionistList = new ArrayList<>();
+    List<Customer> customerList = new ArrayList<>();
     private RequestQueue queue;
     String urlReceptions = "http://10.0.2.2/hotel_app_backend/controllers/receptionController/get.php";
-    String urlCustomers="http://10.0.2.2/hotel_app_backend/controllers/customerController/get.php";
-    Gson gson=new Gson();
+    String urlCustomers = "http://10.0.2.2/hotel_app_backend/controllers/customerController/get.php";
+    Gson gson = new Gson();
     String customers;
-   public static String EXTRA_MESSAGE;
+    public static String EXTRA_MESSAGE;
+   String getExtraMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
         queue = Volley.newRequestQueue(this);
         setViews();
+
+
+
         setSharedPref();
         checkPreference();
+
+        Intent intent = getIntent();
+        String message=intent.getStringExtra(SignUpActivity.EXTRA_MESSAGE);
+        if (message!=null){
+            Customer customer=gson.fromJson(message,Customer.class);
+            usernameEditText.setText(customer.getCustomer_username());
+            passwordEditText.setText(customer.getCustomer_password());
+        }
+
         GetData getData = new GetData();
-        Thread thread=new Thread(getData);
+        Thread thread = new Thread(getData);
         thread.start();
 
         findViewById(R.id.text_create_account).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,SignUpActivity.class);
-                intent.putExtra(EXTRA_MESSAGE,customers);
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, customers);
                 startActivity(intent);
             }
         });
     }
 
     private void setViews() {
-        usernameEditText=findViewById(R.id.usernameId);
-        passwordEditText=findViewById(R.id.passwordId);
+        usernameEditText = findViewById(R.id.usernameId);
+        passwordEditText = findViewById(R.id.passwordId);
     }
+
     private void setSharedPref() {
-        preferences = getSharedPreferences(HOTEL_SHARED,MODE_PRIVATE);
+        preferences = getSharedPreferences(HOTEL_SHARED, MODE_PRIVATE);
         editor = preferences.edit();
     }
 
     private void checkPreference() {
-            String username = preferences.getString(USERNAME, "");
-            String password = preferences.getString(PASSWORD, "");
-            usernameEditText.setText(username);
-            passwordEditText.setText(password);
-        }
+        String username = preferences.getString(USERNAME, "");
+        String password = preferences.getString(PASSWORD, "");
+        usernameEditText.setText(username);
+        passwordEditText.setText(password);
+    }
 
 
     public void go(View view) {
@@ -97,28 +115,27 @@ public class MainActivity extends AppCompatActivity {
 
     // this is handler when user click log in
     public void signin_btn(View view) {
-        String username=usernameEditText.getText().toString();
-        String password=passwordEditText.getText().toString();
+        String username = usernameEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
 
-        if (LoginService.isReceptionist(username,password,receptionistList)){
-            Log.d("username",username);
+        if (LoginService.isReceptionist(username, password, receptionistList)) {
+            Log.d("username", username);
             editor.putString(USERNAME, username);
             editor.putString(PASSWORD, password);
-            editor.putString(CHECK_ACCOUNT,"reception");
+            editor.putString(CHECK_ACCOUNT, "reception");
             editor.commit();
-            Intent intent=new Intent(this, ReceptionMenue.class);
-            intent.putExtra(EXTRA_MESSAGE,customers);
+            Intent intent = new Intent(this, ReceptionMenue.class);
+            intent.putExtra(EXTRA_MESSAGE, customers);
             startActivity(intent);
-        }else{
-            if (LoginService.isCustomer(username,password,customerList)){
+        } else {
+            if (LoginService.isCustomer(username, password, customerList)) {
                 editor.putString(USERNAME, username);
                 editor.putString(PASSWORD, password);
-                editor.putString(CHECK_ACCOUNT,"customer");
+                editor.putString(CHECK_ACCOUNT, "customer");
                 editor.commit();
-                Intent intent=new Intent(this, AboutUsActivity.class);
+                Intent intent = new Intent(this, AvailableRoomsActivity.class);
                 startActivity(intent);
-            }
-            else{
+            } else {
                 Toast.makeText(MainActivity.this, "you have to create account",
                         Toast.LENGTH_LONG).show();
             }
@@ -129,13 +146,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void getReceptionsList(){
+    private void getReceptionsList() {
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlReceptions,
                 new Response.Listener<String>() {
 
-                    JSONObject jsnobject =null;
-                    JSONArray jsonArray=null;
+                    JSONObject jsnobject = null;
+                    JSONArray jsonArray = null;
+
                     @Override
                     public void onResponse(String response) {
                         try {
@@ -149,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        JSONArray  finalJsonArray = jsonArray;
+                        JSONArray finalJsonArray = jsonArray;
                         String g = finalJsonArray.toString();
                         Receptionist[] receptionistsArray = gson.fromJson(g, Receptionist[].class);
                         for (Receptionist receptionist : receptionistsArray) {
@@ -168,13 +186,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void getCustomersList(){
+    public void getCustomersList() {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlCustomers,
                 new Response.Listener<String>() {
 
-                    JSONObject jsnobject =null;
-                    JSONArray jsonArray=null;
+                    JSONObject jsnobject = null;
+                    JSONArray jsonArray = null;
+
                     @Override
                     public void onResponse(String response) {
                         try {
@@ -188,13 +207,13 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        JSONArray  finalJsonArray = jsonArray;
+                        JSONArray finalJsonArray = jsonArray;
                         String g = finalJsonArray.toString();
-                        customers=g;
+                        customers = g;
                         Customer[] customersArray = gson.fromJson(g, Customer[].class);
                         for (Customer customer : customersArray) {
                             customerList.add(customer);
-                            Log.d("customer length",customerList.size()+"");
+                            Log.d("customer length", customerList.size() + "");
                         }
 
                     }
@@ -209,12 +228,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    class GetData implements Runnable{
+    class GetData implements Runnable {
 
         @Override
         public void run() {
-                getReceptionsList();
-                getCustomersList();
+            getReceptionsList();
+            getCustomersList();
 
         }
     }

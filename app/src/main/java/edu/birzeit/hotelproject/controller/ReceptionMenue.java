@@ -22,7 +22,6 @@ public class ReceptionMenue extends AppCompatActivity {
         Intent intent = getIntent();
         String message=intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
-        Log.d("message form main",message);
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent,

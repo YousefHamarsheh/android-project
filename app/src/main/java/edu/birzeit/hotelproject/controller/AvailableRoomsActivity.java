@@ -8,6 +8,7 @@ import edu.birzeit.hotelproject.R;
 
 public class AvailableRoomsActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
