@@ -5,17 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.birzeit.hotelproject.MainActivity;
 import edu.birzeit.hotelproject.R;
@@ -34,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String dateOfBirth;
     private String customerMessage;
     private List<Customer>customerList;
+    public static String EXTRA_MESSAGE;
     private Gson gson = new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +111,11 @@ public class SignUpActivity extends AppCompatActivity {
             }else {
                 if (LoginService.isUsernameUsed(username,customerList)){
                     Toast.makeText(SignUpActivity.this, "username is already used ,use another username", Toast.LENGTH_LONG).show();
+                }else{
+                    Customer customer=new Customer(name,username,password,visa,phone,dateOfBirth);
+                    PostCustomer postCustomer=new PostCustomer(customer);
+                    Thread thread=new Thread(postCustomer);
+                    thread.start();
                 }
             }
         }
@@ -117,10 +134,73 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     class PostCustomer implements Runnable{
+        Customer customer;
+
+        PostCustomer(Customer customer){
+            this.customer=customer;
+        }
+
+
 
         @Override
         public void run() {
             String url="http://10.0.2.2/hotel_app_backend/controllers/customerController/post.php";
+            RequestQueue queue = Volley.newRequestQueue(SignUpActivity.this);
+            StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e("TAG", "RESPONSE IS " + response);
+                    if (response.equalsIgnoreCase("New record created successfully")){
+                        Toast.makeText(SignUpActivity.this,"cretaed account succefully",Toast.LENGTH_LONG).show();
+                        Intent intent=new Intent(SignUpActivity.this,MainActivity.class);
+                        String message=gson.toJson(customer);
+                        intent.putExtra(EXTRA_MESSAGE,message);
+                        startActivity(intent);
+                    }
+
+                }
+            }, new com.android.volley.Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // method to handle errors.
+                    Toast.makeText(SignUpActivity.this,
+                            "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+                    Log.d("errorr",error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    // as we are passing data in the form of url encoded
+                    // so we are passing the content type below
+                    return "application/x-www-form-urlencoded; charset=UTF-8";
+                }
+
+                @Override
+                protected Map<String, String> getParams() {
+
+                    // below line we are creating a map for storing
+                    // our values in key and value pair.
+                    Map<String, String> params = new HashMap<String, String>();
+
+                    // on below line we are passing our
+                    // key and value pair to our parameters.
+
+                    params.put("customer_name", name);
+                    params.put("customer_username",username);
+                    params.put("customer_password",password);
+                    params.put("customer_visa",visa);
+                    params.put("customer_phone", phone);
+                    params.put("dateOfBirth",dateOfBirth);
+
+
+
+                    // at last we are returning our params.
+                    return params;
+                }
+            };
+            // below line is to make
+            // a json object request.
+            queue.add(request);
+        }
         }
     }
-}

@@ -19,6 +19,15 @@ public class Customer {
         this.customer_password = customer_password;
     }
 
+    public Customer(String customer_name, String customer_username, String customer_password, String customer_visa, String customer_phone, String dateOfBirth) {
+        this.customer_name = customer_name;
+        this.customer_username = customer_username;
+        this.customer_password = customer_password;
+        this.customer_visa = customer_visa;
+        this.customer_phone = customer_phone;
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public Customer(int customer_id, String customer_name, String customer_username, String customer_password, String customer_visa, String customer_phone, String dateOfBirth) {
         this.customer_id = customer_id;
         this.customer_name = customer_name;
@@ -28,6 +37,8 @@ public class Customer {
         this.customer_phone = customer_phone;
         this.dateOfBirth = dateOfBirth;
     }
+
+
 
     public int getCustomer_id() {
         return customer_id;
