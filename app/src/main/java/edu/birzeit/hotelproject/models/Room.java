@@ -6,23 +6,25 @@ public class Room {
     private String room_number;
     private String room_type;
     private String room_price;
-    private String imageUrl;
+    private int imageId;
     private String room_description;
     private int room_reserve;// 0 for unreserved | 1 for reserved
 
     public Room() {}
 
     public Room(int room_id, String room_number, String room_type, String room_price,
-                String imageUrl, String room_description, int room_reserve) {
+                int imageId, String room_description, int room_reserve) {
         this.room_id = room_id;
         this.room_number = room_number;
         this.room_type = room_type;
         this.room_price = room_price;
-        this.imageUrl = imageUrl;
+        this.imageId = imageId;
         this.room_description = room_description;
         this.room_reserve = room_reserve;
 
     }
+
+
 
     public int getRoom_id() {
         return room_id;
@@ -56,12 +58,12 @@ public class Room {
         this.room_price = room_price;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public String getRoom_description() {
@@ -87,7 +89,7 @@ public class Room {
                 ", room_number='" + room_number + '\'' +
                 ", room_type='" + room_type + '\'' +
                 ", room_price='" + room_price + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", imageUrl='" + imageId + '\'' +
                 ", room_description='" + room_description + '\'' +
                 '}';
     }

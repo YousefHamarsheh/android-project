@@ -2,7 +2,6 @@ package edu.birzeit.hotelproject.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,6 +14,7 @@ public class AboutUsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
@@ -26,7 +26,7 @@ public class AboutUsActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.homepage:
+                    case R.id.homepage :
                         startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
                         overridePendingTransition(0,0);
                         return true;

@@ -25,11 +25,14 @@ import edu.birzeit.hotelproject.R;
 import edu.birzeit.hotelproject.models.Receptionist;
 
 public class ReceptionActivity extends AppCompatActivity {
+
     List<String>list=new ArrayList<>();
     private ListView receptionsList;
     private RequestQueue queue;
+
     String url = "http://10.0.2.2/hotel_app_backend/controllers/receptionController/get.php";
     Gson gson=new Gson();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +63,15 @@ public class ReceptionActivity extends AppCompatActivity {
                         }
                         try {
                             jsonArray = jsnobject.getJSONArray("receptionist");
-                        } catch (JSONException e) {
+                        }catch (JSONException e) {
                             e.printStackTrace();
                         }
+
 
                       JSONArray  finalJsonArray = jsonArray;
                         String g = finalJsonArray.toString();
                         Receptionist[] receptionistsArray = gson.fromJson(g, Receptionist[].class);
+
                         for (Receptionist receptionist : receptionistsArray) {
                             list.add(receptionist.getName());
                         }
@@ -84,7 +89,10 @@ public class ReceptionActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
+
+
             }
+
         });
         queue.add(stringRequest);
 

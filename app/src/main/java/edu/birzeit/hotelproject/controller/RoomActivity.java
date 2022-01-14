@@ -9,8 +9,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,19 +38,24 @@ import edu.birzeit.hotelproject.models.Room;
 
 
 public class RoomActivity extends AppCompatActivity {
+
+    private int[] imageViewArr ;
+    private String[] pricesArr ;
+    private String[] roomTypeArr ;
+
     private ListView roomListView;
     private RequestQueue queue;
     public static final String HOTEL_SHARED = "HOTEL_SHARED";
     public static final String CHECK_ACCOUNT = "CHECK_ACCOUNT";
     private Gson gson = new Gson();
     private List<String> rooms = new ArrayList<>();
+
     String url = "http://10.0.2.2:80/hotel_app_backend/controllers/RoomController/get.php";
     List<Room>roomList=new ArrayList<>();
     List<Room>singleRoom,doubleRoom;
+
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +69,7 @@ public class RoomActivity extends AppCompatActivity {
         BNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()) {
                     case R.id.homepage:
                         startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
@@ -89,7 +100,7 @@ public class RoomActivity extends AppCompatActivity {
         });
 
         queue = Volley.newRequestQueue(this);
-        roomListView=findViewById(R.id.listRoom_id);
+        roomListView=findViewById(R.id.listViewRoom);
         GetData getData=new GetData();
         Thread thread=new Thread(getData);
         thread.start();
@@ -110,8 +121,10 @@ public class RoomActivity extends AppCompatActivity {
 
         @Override
         public void run() {
+
             singleRoom=new ArrayList<>();
             doubleRoom=new ArrayList<>();
+
             for (Room room : roomList) {
                 if (room.getRoom_type().equalsIgnoreCase("single")){
                     singleRoom.add(room);
@@ -188,8 +201,48 @@ public class RoomActivity extends AppCompatActivity {
 
     }
 
+
+    class RoomReceptionAdapter extends BaseAdapter {
+
+
+        @Override
+        public int getCount() {
+            return imageViewArr.length;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            view = getLayoutInflater().inflate(R.layout.card, viewGroup, false);
+            ImageView imageViewRoom = view.findViewById(R.id.imageViewRoomRes);
+            TextView textViewPrice = view.findViewById(R.id.textViewRoomPrice);
+            TextView textViewType = view.findViewById(R.id.textViewRoomType);
+            textViewPrice.setText(pricesArr[i]);
+            textViewType.setText(roomTypeArr[i]);
+            imageViewRoom.setImageResource(imageViewArr[i]);
+
+            //return null;
+            return view;
+        }
+
+
+    }
+
+
     private void setSharedPref() {
         preferences = getSharedPreferences(HOTEL_SHARED,MODE_PRIVATE);
         editor = preferences.edit();
     }
+
+
 }
